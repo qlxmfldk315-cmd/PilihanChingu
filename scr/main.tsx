@@ -227,3 +227,12 @@ function Home() {
     </div>
   )
 }
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App' // or your main component content
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    {/* Your Component */}
+  </React.StrictMode>
+)
