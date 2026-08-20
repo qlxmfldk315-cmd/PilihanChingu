@@ -1,11 +1,25 @@
-import { useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
-import products from '@/data/products'
-import type { OrderItemInput } from '@/lib/orders'
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom/client'
 
-export const Route = createFileRoute('/')({
-  component: Home,
-})
+type OrderItemInput = {
+  name: string
+  priceKRW: number
+  url?: string
+}
+
+type Product = {
+  id: string
+  name: string
+  priceKRW: number
+  url: string
+}
+
+const products: Product[] = [
+  { id: 'p1', name: 'COSRX Advanced Snail 96 Mucin Essence', priceKRW: 15000, url: 'https://www.oliveyoung.co.kr' },
+  { id: 'p2', name: 'Some By Mi AHA-BHA-PHA Toner', priceKRW: 18000, url: 'https://www.oliveyoung.co.kr' },
+  { id: 'p3', name: 'Daiso Cute Desk Organizer', priceKRW: 5000, url: 'https://www.daisomall.co.kr' },
+  { id: 'p4', name: 'ZigZag Oversized Knit Sweater', priceKRW: 35000, url: 'https://zigzag.kr' },
+]
 
 const KRW_TO_IDR = 13.0
 const JASTIP_FEE_PERCENT = 0.3
@@ -32,7 +46,7 @@ const GOOGLE_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSfwcT6QY3akGLy4WBxXMEvSymn9KsgLjwboHE9viFFA45kQhw/viewform'
 const GOOGLE_FORM_ORDER_DETAILS_ENTRY = 'entry.661900957'
 
-function buildOrderDetails(cart: Array<OrderItemInput>) {
+function buildOrderDetails(cart: OrderItemInput[]) {
   return cart
     .map((item) => {
       const link = item.url ? ` - ${item.url}` : ''
@@ -46,7 +60,7 @@ function formatIdr(value: number) {
 }
 
 function Home() {
-  const [cart, setCart] = useState<Array<OrderItemInput>>([])
+  const [cart, setCart] = useState<OrderItemInput[]>([])
   const [customUrl, setCustomUrl] = useState('')
   const [customName, setCustomName] = useState('')
   const [customPrice, setCustomPrice] = useState('')
@@ -227,12 +241,9 @@ function Home() {
     </div>
   )
 }
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App' // or your main component content
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* Your Component */}
+    <Home />
   </React.StrictMode>
 )
